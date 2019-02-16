@@ -1,0 +1,12 @@
+$ git log
+commit de68e78f639ce57948c10bd412aef648dc7ffac6 (HEAD -> master)
+Author: shimanovAV <aleksandra.shimanovich@mail.ru>
+Date:   Sat Feb 16 12:55:28 2019 +0300
+
+    add status.txt
+
+commit 58c33f41eef4a0ce96f4f3db32ee271f3f674592
+Author: shimanovAV <aleksandra.shimanovich@mail.ru>
+Date:   Sat Feb 16 12:53:01 2019 +0300
+
+    add .gitignore
