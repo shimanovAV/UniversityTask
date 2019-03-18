@@ -1,4 +1,156 @@
-var photoPosts = [
+const STRING_TYPE = 'string';
+const EMPTY_STRING = '';
+const MAX_SIZE_OF_DESCRIPTION = 200;
+const UNDEFINED_TYPE = 'undefined';
+const START_POSITION_DEFAULT = 0;
+const END_POSITION_DEFAULT = 10;
+const DELETE_COUNT_DEFAULT = 1;
+
+
+class FilterHelper {
+        author (list, author) {
+            return list.filter(function (element) {
+                return element.author === author;
+            });
+        }
+        dateFrom(list, dateFrom) {
+            let date = new Date(dateFrom);
+            return list.filter(function (a) {
+                return a.createdAt >= date;
+            });
+        }
+        dateTo(list, dateTo) {
+            let date = new Date(dateTo);
+            return list.filter(function (a) {
+                return a.createdAt <= date;
+            });
+        }
+        hashTags(list, hashTags) {
+            let findHashTag = function (list, hashTag) {
+                return list.filter(function (a) {
+                    return a.hashTags.includes(hashTag)
+                });
+            };
+
+            for (let i = 0; i < hashTags.length; i++) {
+                list = findHashTag(list, hashTags[i]);
+            }
+            return list;
+
+        }
+}
+
+class Validator {
+    static _checkId (a) {
+        return a && (typeof a === STRING_TYPE);
+    }
+    static _checkDescription (a) {
+        return typeof a === STRING_TYPE && a.trim() !== EMPTY_STRING && a.length < MAX_SIZE_OF_DESCRIPTION;
+    }
+    static _checkAuthor (a) {
+        return typeof a === STRING_TYPE && a.trim() !== EMPTY_STRING;
+    }
+    static _checkPhotoLink(a) {
+        return typeof a === STRING_TYPE && a.trim() !== EMPTY_STRING;
+    }
+
+    static _validate (photoPost) {
+        if (typeof photoPost === UNDEFINED_TYPE) {
+            return false;
+        }
+        let empty = photoPost.id && photoPost.description &&
+            photoPost.createdAt && photoPost.author &&
+            photoPost.photoLink;
+        if (empty) {
+            return this._checkId(photoPost.id) &&
+                this._checkDescription(photoPost.description) &&
+                this._checkAuthor(photoPost.author) &&
+                this._checkPhotoLink(photoPost.photoLink);
+        }
+        return false;
+    }
+}
+
+class PostCollection {
+
+    constructor(posts, user) {
+        this._posts = posts || [];
+        this._user = user || null;
+    }
+    getPage(skip, top, filterConfig = {}) {
+        let filterHelper = new FilterHelper();
+        skip = skip || START_POSITION_DEFAULT;
+        top = top || END_POSITION_DEFAULT;
+        let filteredPosts = this._posts.sort((a, b) => b.createdAt - a.createdAt);
+        Object.keys(filterConfig).forEach(function (field) {
+            filteredPosts = filterHelper[field](filteredPosts, filterConfig[field])
+        });
+        return filteredPosts.slice(skip, skip+top);
+    }
+
+    get(id) {
+            if (Validator._checkId(id)) {
+                return  this._posts.filter(function (post) {
+                        if (post.id === id) {
+                            return post;
+                        }
+                    }
+                )[START_POSITION_DEFAULT];
+            }
+    }
+
+    add(photoPost) {
+        photoPost.createdAt = new Date();
+        photoPost.id = String(photoPost.createdAt.getTime());
+        photoPost.author = this._user;
+        if (Validator._checkDescription(photoPost.description) && Validator._checkPhotoLink(photoPost.photoLink)) {
+            this._posts.unshift(photoPost);
+            return true;
+        }
+        return false;
+    }
+
+    edit (id, photoPost) {
+        let currentPhotoPost = this.get(id);
+        let flag = false;
+        if (Validator._validate(currentPhotoPost)) {
+            if (Validator._checkDescription(photoPost.description)) {
+                currentPhotoPost.description = photoPost.description;
+                flag = true;
+            }
+            if (Validator._checkPhotoLink(photoPost.photoLink)) {
+                currentPhotoPost.photoLink = photoPost.photoLink;
+                flag = true;
+            }
+        }
+        return flag;
+    }
+
+    remove(id) {
+        let flag = false;
+        let allPhotos = this._posts;
+        if (Validator._checkId(id)) {
+            allPhotos.forEach(function (item, i, allPhotos) {
+                if (item.id === id) {
+                    allPhotos.splice(i, DELETE_COUNT_DEFAULT);
+                    flag = true;
+                }
+            });
+
+        }
+        return flag;
+    }
+
+     addAll(posts){
+        return posts.filter(item=> !this.add(item));
+    }
+
+    clear(){
+        this._posts = [];
+    }
+};
+
+const postCollecton = new PostCollection([
     {
         id: '1',
         description: 'Женская сборная Беларуси выиграла эстафету в рамках соревнований по биатлону на Олимпийских играх в Пхёнчхане!!!',
@@ -194,160 +346,6 @@ var photoPosts = [
         likes: ['Alex Gold','Miss sunshine']
     }
 
-];
-
-let I = function () {
-    let filterHelper = {
-        author: function (list, author) {
-            return list.filter(function (element) {
-                return element.author === author;
-            });
-        },
-        dateFrom: function (list, dateFrom) {
-            var date = new Date(dateFrom);
-            return list.filter(function (a) {
-                return a.createdAt >= date;
-            });
-        },
-
-        dateTo: function (list, dateTo) {
-            var date = new Date(dateTo);
-            return list.filter(function (a) {
-                return a.createdAt < date;
-            });
-        },
-
-        hashTags: function (list, hashTags) {
-            let findHashTag = function (list, hashTag) {
-                return list.filter(function (a) {
-                    return a.hashTags.includes(hashTag)
-                });
-            };
-
-            for (let i = 1; i < hashTags.length; i++) {
-                list = findHashTag(list, hashTags[i]);
-            }
-            return list;
-
-        }
-    };
-
-    return {
-        checkId: function (a) {
-            return a && (typeof a === 'string');
-        },
-        isUnique: function (id) {
-            let res = photoPosts;
-            if (this.checkId(id)) {
-                res = res.filter(function (post) {
-                    return post.id === id;
-                })
-            }
-            return res.length === 0;
-        },
-        checkDescription: function (a) {
-            return typeof a === 'string' && a.trim() !== '' && a.length < 200;
-        },
-        checkAuthor: function (a) {
-            return typeof a === 'string' && a.trim() !== '';
-        },
-        checkPhotoLink: function (a) {
-            return typeof a === 'string' && a.trim() !== '';
-        },
-        getPhotoPost: function (id) {
-            if (this.checkId(id)) {
-                let res = photoPosts;
-                return  res.filter(function (post) {
-                        if (post.id === id) {
-                            return post;
-                        }
-                    }
-                )[0];
-            }
-        },
-        validatePhotoPost: function (photoPost) {
-            if (typeof photoPost === "undefined") {
-                return false;
-            }
-            let empty = photoPost.id && photoPost.description &&
-                photoPost.createdAt && photoPost.author &&
-                photoPost.photoLink;
-            if (empty) {
-                return this.checkId(photoPost.id) &&
-                    this.checkDescription(photoPost.description) &&
-                    this.checkAuthor(photoPost.author) &&
-                    this.checkPhotoLink(photoPost.photoLink);
-            }
-            return false;
-        },
-        addPhotoPost: function (a) {
-            if (this.validatePhotoPost(a)) {
-                if (this.isUnique(a.id)) {
-                    photoPosts.unshift(a);
-                    return true;
-                }
-            }
-            return false;
-        },
-        editPhotoPost: function (id, photoPost) {
-            let currentPhotoPost = this.getPhotoPost(id);
-            let flag = false;
-            if (this.validatePhotoPost(currentPhotoPost)) {
-                if (this.checkDescription(photoPost.description)) {
-                    currentPhotoPost.description = photoPost.description;
-                    flag = true;
-                }
-                if (this.checkPhotoLink(photoPost.photoLink)) {
-                    currentPhotoPost.photoLink = photoPost.photoLink;
-                    flag = true;
-                }
-            }
-
-            return flag;
-        },
-        removePhotoPost: function (id) {
-            let flag = false;
-            if (this.checkId(id)) {
-                photoPosts.forEach(function (item, i, photoPosts) {
-                    if (item.id === id) {
-                        photoPosts.splice(i, 1);
-                        flag = true;
-                    }
-                });
-
-            }
-            return flag;
-        },
-        getPhotoPosts: function (skip, top, filterConfig) {
-            var skip = skip || 0;
-            var top = top || 10;
-            var filteredPosts = photoPosts.slice(0);
-            Object.keys(filterConfig).forEach(function (field) {
-                filteredPosts = filterHelper[field](filteredPosts, filterConfig[field])
-            });
-            return filteredPosts.slice(skip, top);
-        },
-
-    }
-}();
-console.log(I.getPhotoPost('9'));
-console.log(I.isUnique('2'));
-console.log(I.getPhotoPosts(0, 10, {author: 'Mr. Snow'}));
-console.log(I.removePhotoPost('6'));
-console.log(I.editPhotoPost('1', { photoLink: 'http://haradok.info/static/news/5/4565/preview.jpg'}));
-console.log(I.addPhotoPost({
-    id: '21',
-    description: 'Женская сборная Беларуси выиграла эстафету в рамках соревнований по биатлону на Олимпийских играх в Пхёнчхане!!!',
-    createdAt: new Date('2018-02-23T23:00:00'),
-    author: 'Иванов Иван',
-    photoLink: 'http://ont.by/webroot/delivery/files/news/2018/02/22/Dom.jpg'
-}));
-console.log(I.validatePhotoPost({
-    id: '1',
-    description: 'Женская сборная Беларуси выиграла эстафету в рамках соревнований по биатлону на Олимпийских играх в Пхёнчхане!!!',
-    createdAt: new Date('2018-02-23T23:00:00'),
-    author: 'Иванов Иван',
-    photoLink: 'http://ont.by/webroot/delivery/files/news/2018/02/22/Dom.jpg'
-}));
+]);
 
 
