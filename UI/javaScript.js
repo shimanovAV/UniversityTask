@@ -1,16 +1,12 @@
-const STRING_TYPE = 'string';
-const EMPTY_STRING = '';
 const MAX_SIZE_OF_DESCRIPTION = 200;
-const UNDEFINED_TYPE = 'undefined';
 const START_POSITION_DEFAULT = 0;
 const END_POSITION_DEFAULT = 10;
-const DELETE_COUNT_DEFAULT = 1;
 
 
 class FilterHelper {
         author (list, author) {
             return list.filter(function (element) {
-                return element.author === author;
+                return element.author.toLowerCase().includes(author.toLowerCase());
             });
         }
         dateFrom(list, dateFrom) {
@@ -26,45 +22,32 @@ class FilterHelper {
             });
         }
         hashTags(list, hashTags) {
-            let findHashTag = function (list, hashTag) {
-                return list.filter(function (a) {
-                    return a.hashTags.includes(hashTag)
+            hashTags.forEach(function (hashTag) {
+                list = list.filter(function (a) {
+                    return a.hashTags.includes(hashTags[i])
                 });
-            };
-
-            for (let i = 0; i < hashTags.length; i++) {
-                list = findHashTag(list, hashTags[i]);
-            }
-            return list;
-
+            });
         }
 }
 
 class Validator {
     static _checkId (a) {
-        return a && (typeof a === STRING_TYPE);
+        return (!!a);
     }
     static _checkDescription (a) {
-        return typeof a === STRING_TYPE && a.trim() !== EMPTY_STRING && a.length < MAX_SIZE_OF_DESCRIPTION;
-    }
-    static _checkAuthor (a) {
-        return typeof a === STRING_TYPE && a.trim() !== EMPTY_STRING;
+        return (!!a) && a.length < MAX_SIZE_OF_DESCRIPTION;
     }
     static _checkPhotoLink(a) {
-        return typeof a === STRING_TYPE && a.trim() !== EMPTY_STRING;
+        return (!!a);
     }
 
     static _validate (photoPost) {
-        if (typeof photoPost === UNDEFINED_TYPE) {
-            return false;
-        }
         let empty = photoPost.id && photoPost.description &&
             photoPost.createdAt && photoPost.author &&
             photoPost.photoLink;
         if (empty) {
             return this._checkId(photoPost.id) &&
                 this._checkDescription(photoPost.description) &&
-                this._checkAuthor(photoPost.author) &&
                 this._checkPhotoLink(photoPost.photoLink);
         }
         return false;
@@ -89,14 +72,13 @@ class PostCollection {
     }
 
     get(id) {
-            if (Validator._checkId(id)) {
-                return  this._posts.filter(function (post) {
+                return  this._posts.find( (post)=> {
                         if (post.id === id) {
-                            return post;
+                            return true;
                         }
+                        return false;
                     }
-                )[START_POSITION_DEFAULT];
-            }
+                );
     }
 
     add(photoPost) {
@@ -130,19 +112,19 @@ class PostCollection {
         let flag = false;
         let allPhotos = this._posts;
         if (Validator._checkId(id)) {
-            allPhotos.forEach(function (item, i, allPhotos) {
+            let elementForDeletion = allPhotos.findIndex(function (item, i, allPhotos) {
                 if (item.id === id) {
-                    allPhotos.splice(i, DELETE_COUNT_DEFAULT);
-                    flag = true;
+                   return true;
                 }
             });
-
+            allPhotos.splice(elementForDeletion,1);
+            flag = true;
         }
         return flag;
     }
 
      addAll(posts){
-        return posts.filter(item=> !this.add(item));
+        return posts.filter(item => !this.add(item));
     }
 
     clear(){
