@@ -68,6 +68,7 @@ h3 {
 }
 
 #addButton {
+    display: none;
     position: fixed;
     z-index: 1000;
     background: #8d6e63;
@@ -216,6 +217,7 @@ hr {
 
 #authorName {
     font-size: 250%;
+    display: none;
 }
 
 main {
@@ -226,6 +228,7 @@ main {
 .fa fa-plus fa-2x {
     color: #f8f9fa;
 }
+
 
 
 

@@ -132,13 +132,13 @@ class PostCollection {
     }
 };
 
-const postCollecton = new PostCollection([
+postCollecton = new PostCollection([
     {
         id: '1',
         description: 'Женская сборная Беларуси выиграла эстафету в рамках соревнований по биатлону на Олимпийских играх в Пхёнчхане!!!',
         createdAt: new Date('2018-02-23T23:00:00'),
-        author: 'Иванов Иван',
-        photoLink: 'http://ont.by/webroot/delivery/files/news/2018/02/22/Dom.jpg',
+        author: 'Ivan',
+        photoLink: 'pictures/b.jpg',
         hashTags: ['#work', '#up', '#love'],
         likes: ['Alex Gold','Miss sunshine']
     },
@@ -147,7 +147,7 @@ const postCollecton = new PostCollection([
         description: 'Эстафету в рамках соревнований по биатлону на Олимпийских играх в Пхёнчхане!!!',
         createdAt: new Date('2018-03-24T23:00:00'),
         author: 'Иванов Иван',
-        photoLink: 'https://yandex.by/images/search?text=%D0%BA%D0%B0%D1%80%D1%82%D0%B8%D0%BD%D0%BA%D0%B8&img_url=https%3A%2F%2Fstmed.net%2Fsites%2Fdefault%2Ffiles%2Fsquirrel-wallpapers-25639-2177715.jpg&pos=0&rpt=simage&stype=image&lr=157&parent-reqid=1552306820603634-533477407658204781100039-vla1-3102&source=wiz',
+        photoLink: 'pictures/c.jpg',
         hashTags: ['#work', '#up', '#love'],
         likes: ['Alex Gold','Miss sunshine']
     }
@@ -157,7 +157,7 @@ const postCollecton = new PostCollection([
         description: 'Эстафету в рамках соревнований по биатлону на Олимпийских играх в Пхёнчхане!!!',
         createdAt: new Date('2018-03-22T23:00:00'),
         author: 'Иванов Иван',
-        photoLink: 'https://yandex.by/images/search?text=%D0%BA%D0%B0%D1%80%D1%82%D0%B8%D0%BD%D0%BA%D0%B8&img_url=https%3A%2F%2Fstmed.net%2Fsites%2Fdefault%2Ffiles%2Fsquirrel-wallpapers-25639-2177715.jpg&pos=0&rpt=simage&stype=image&lr=157&parent-reqid=1552306820603634-533477407658204781100039-vla1-3102&source=wiz',
+        photoLink: 'pictures/f.JPG',
         hashTags: ['#work', '#up', '#love'],
         likes: ['Alex Gold','Miss sunshine']
     }
@@ -167,7 +167,7 @@ const postCollecton = new PostCollection([
         description: 'Эстафету в рамках соревнований по биатлону на Олимпийских играх в Пхёнчхане!!!',
         createdAt: new Date('2018-03-10T23:00:00'),
         author: 'Иванов Иван',
-        photoLink: 'https://yandex.by/images/search?text=%D0%BA%D0%B0%D1%80%D1%82%D0%B8%D0%BD%D0%BA%D0%B8&img_url=https%3A%2F%2Fstmed.net%2Fsites%2Fdefault%2Ffiles%2Fsquirrel-wallpapers-25639-2177715.jpg&pos=0&rpt=simage&stype=image&lr=157&parent-reqid=1552306820603634-533477407658204781100039-vla1-3102&source=wiz',
+        photoLink: 'pictures/h.jpg',
         hashTags: ['#work', '#up', '#love'],
         likes: ['Alex Gold','Miss sunshine']
     }
@@ -177,7 +177,7 @@ const postCollecton = new PostCollection([
         description: 'Эстафету в рамках соревнований по биатлону на Олимпийских играх в Пхёнчхане!!!',
         createdAt: new Date('2018-03-03T23:00:00'),
         author: 'Иванов Иван',
-        photoLink: 'https://yandex.by/images/search?text=%D0%BA%D0%B0%D1%80%D1%82%D0%B8%D0%BD%D0%BA%D0%B8&img_url=https%3A%2F%2Fstmed.net%2Fsites%2Fdefault%2Ffiles%2Fsquirrel-wallpapers-25639-2177715.jpg&pos=0&rpt=simage&stype=image&lr=157&parent-reqid=1552306820603634-533477407658204781100039-vla1-3102&source=wiz',
+        photoLink: 'pictures/j.jpg',
         hashTags: ['#work', '#up', '#love'],
         likes: ['Alex Gold','Miss sunshine']
     }
@@ -187,7 +187,7 @@ const postCollecton = new PostCollection([
         description: 'Эстафету в рамках соревнований по биатлону на Олимпийских играх в Пхёнчхане!!!',
         createdAt: new Date('2018-03-03T23:00:00'),
         author: 'John Snow',
-        photoLink: 'https://yandex.by/images/search?text=%D0%BA%D0%B0%D1%80%D1%82%D0%B8%D0%BD%D0%BA%D0%B8&img_url=https%3A%2F%2Fstmed.net%2Fsites%2Fdefault%2Ffiles%2Fsquirrel-wallpapers-25639-2177715.jpg&pos=0&rpt=simage&stype=image&lr=157&parent-reqid=1552306820603634-533477407658204781100039-vla1-3102&source=wiz',
+        photoLink: 'pictures/k.jpg',
         hashTags: ['#work', '#up', '#love'],
         likes: ['Alex Gold','Miss sunshine']}
     ,
@@ -195,8 +195,8 @@ const postCollecton = new PostCollection([
         id: '7',
         description: 'Эстафету в рамках соревнований по биатлону на Олимпийских играх в Пхёнчхане!!!',
         createdAt: new Date('2018-04-23T23:00:00'),
-        author: 'Иванов Иван',
-        photoLink: 'https://yandex.by/images/search?text=%D0%BA%D0%B0%D1%80%D1%82%D0%B8%D0%BD%D0%BA%D0%B8&img_url=https%3A%2F%2Fstmed.net%2Fsites%2Fdefault%2Ffiles%2Fsquirrel-wallpapers-25639-2177715.jpg&pos=0&rpt=simage&stype=image&lr=157&parent-reqid=1552306820603634-533477407658204781100039-vla1-3102&source=wiz',
+        author: 'Ivan',
+        photoLink: 'pictures/l.jpg',
         hashTags: ['#work', '#up', '#love'],
         likes: ['Alex Gold','Miss sunshine']
     }
@@ -206,7 +206,7 @@ const postCollecton = new PostCollection([
         description: 'Эстафету в рамках соревнований по биатлону на Олимпийских играх в Пхёнчхане!!!',
         createdAt: new Date('2018-02-23T23:00:00'),
         author: 'Иванов Иван',
-        photoLink: 'https://yandex.by/images/search?text=%D0%BA%D0%B0%D1%80%D1%82%D0%B8%D0%BD%D0%BA%D0%B8&img_url=https%3A%2F%2Fstmed.net%2Fsites%2Fdefault%2Ffiles%2Fsquirrel-wallpapers-25639-2177715.jpg&pos=0&rpt=simage&stype=image&lr=157&parent-reqid=1552306820603634-533477407658204781100039-vla1-3102&source=wiz',
+        photoLink: 'pictures/m.jpg',
         hashTags: ['#work', '#up', '#love'],
         likes: ['Alex Gold','Miss sunshine']
     }
@@ -216,7 +216,7 @@ const postCollecton = new PostCollection([
         description: 'Эстафету в рамках соревнований по биатлону на Олимпийских играх в Пхёнчхане!!!',
         createdAt: new Date('2018-01-23T23:00:00'),
         author: 'John Snow',
-        photoLink: 'https://yandex.by/images/search?text=%D0%BA%D0%B0%D1%80%D1%82%D0%B8%D0%BD%D0%BA%D0%B8&img_url=https%3A%2F%2Fstmed.net%2Fsites%2Fdefault%2Ffiles%2Fsquirrel-wallpapers-25639-2177715.jpg&pos=0&rpt=simage&stype=image&lr=157&parent-reqid=1552306820603634-533477407658204781100039-vla1-3102&source=wiz',
+        photoLink: 'pictures/n.jpg',
         hashTags: ['#work', '#up', '#love'],
         likes: ['Alex Gold','Miss sunshine']
     }
@@ -226,7 +226,7 @@ const postCollecton = new PostCollection([
         description: 'Эстафету в рамках соревнований по биатлону на Олимпийских играх в Пхёнчхане!!!',
         createdAt: new Date('2018-03-28T23:00:00'),
         author: 'Иванов Иван',
-        photoLink: 'https://yandex.by/images/search?text=%D0%BA%D0%B0%D1%80%D1%82%D0%B8%D0%BD%D0%BA%D0%B8&img_url=https%3A%2F%2Fstmed.net%2Fsites%2Fdefault%2Ffiles%2Fsquirrel-wallpapers-25639-2177715.jpg&pos=0&rpt=simage&stype=image&lr=157&parent-reqid=1552306820603634-533477407658204781100039-vla1-3102&source=wiz',
+        photoLink: 'pictures/g.JPG',
         hashTags: ['#work', '#up', '#love'],
         likes: ['Alex Gold','Miss sunshine']
     },
@@ -235,7 +235,7 @@ const postCollecton = new PostCollection([
         description: 'Женская сборная Беларуси выиграла эстафету в рамках соревнований по биатлону на Олимпийских играх в Пхёнчхане!!!',
         createdAt: new Date('2018-02-23T23:00:00'),
         author: 'Иванов Иван',
-        photoLink: 'http://ont.by/webroot/delivery/files/news/2018/02/22/Dom.jpg',
+        photoLink: 'pictures/v.jpg',
         hashTags: ['#work', '#up', '#love'],
         likes: ['Alex Gold','Miss sunshine']
     },
@@ -244,7 +244,7 @@ const postCollecton = new PostCollection([
         description: 'Эстафету в рамках соревнований по биатлону на Олимпийских играх в Пхёнчхане!!!',
         createdAt: new Date('2018-03-24T23:00:00'),
         author: 'Иванов Иван',
-        photoLink: 'https://yandex.by/images/search?text=%D0%BA%D0%B0%D1%80%D1%82%D0%B8%D0%BD%D0%BA%D0%B8&img_url=https%3A%2F%2Fstmed.net%2Fsites%2Fdefault%2Ffiles%2Fsquirrel-wallpapers-25639-2177715.jpg&pos=0&rpt=simage&stype=image&lr=157&parent-reqid=1552306820603634-533477407658204781100039-vla1-3102&source=wiz',
+        photoLink: 'pictures/x.jpg',
         hashTags: ['#work', '#up', '#love'],
         likes: ['Alex Gold','Miss sunshine']
     }
@@ -254,7 +254,7 @@ const postCollecton = new PostCollection([
         description: 'Эстафету в рамках соревнований по биатлону на Олимпийских играх в Пхёнчхане!!!',
         createdAt: new Date('2018-03-22T23:00:00'),
         author: 'Иванов Иван',
-        photoLink: 'https://yandex.by/images/search?text=%D0%BA%D0%B0%D1%80%D1%82%D0%B8%D0%BD%D0%BA%D0%B8&img_url=https%3A%2F%2Fstmed.net%2Fsites%2Fdefault%2Ffiles%2Fsquirrel-wallpapers-25639-2177715.jpg&pos=0&rpt=simage&stype=image&lr=157&parent-reqid=1552306820603634-533477407658204781100039-vla1-3102&source=wiz',
+        photoLink: 'pictures/x.jpg',
         hashTags: ['#work', '#up', '#love'],
         likes: ['Alex Gold','Miss sunshine']
     }
@@ -264,7 +264,7 @@ const postCollecton = new PostCollection([
         description: 'Эстафету в рамках соревнований по биатлону на Олимпийских играх в Пхёнчхане!!!',
         createdAt: new Date('2018-03-10T23:00:00'),
         author: 'Иванов Иван',
-        photoLink: 'https://yandex.by/images/search?text=%D0%BA%D0%B0%D1%80%D1%82%D0%B8%D0%BD%D0%BA%D0%B8&img_url=https%3A%2F%2Fstmed.net%2Fsites%2Fdefault%2Ffiles%2Fsquirrel-wallpapers-25639-2177715.jpg&pos=0&rpt=simage&stype=image&lr=157&parent-reqid=1552306820603634-533477407658204781100039-vla1-3102&source=wiz',
+        photoLink: 'pictures/x.jpg',
         hashTags: ['#work', '#up', '#love'],
         likes: ['Alex Gold','Miss sunshine']
     }
@@ -274,7 +274,7 @@ const postCollecton = new PostCollection([
         description: 'Эстафету в рамках соревнований по биатлону на Олимпийских играх в Пхёнчхане!!!',
         createdAt: new Date('2018-03-03T23:00:00'),
         author: 'Иванов Иван',
-        photoLink: 'https://yandex.by/images/search?text=%D0%BA%D0%B0%D1%80%D1%82%D0%B8%D0%BD%D0%BA%D0%B8&img_url=https%3A%2F%2Fstmed.net%2Fsites%2Fdefault%2Ffiles%2Fsquirrel-wallpapers-25639-2177715.jpg&pos=0&rpt=simage&stype=image&lr=157&parent-reqid=1552306820603634-533477407658204781100039-vla1-3102&source=wiz',
+        photoLink: 'pictures/x.jpg',
         hashTags: ['#work', '#up', '#love'],
         likes: ['Alex Gold','Miss sunshine']
     }
@@ -284,7 +284,7 @@ const postCollecton = new PostCollection([
         description: 'Эстафету в рамках соревнований по биатлону на Олимпийских играх в Пхёнчхане!!!',
         createdAt: new Date('2018-03-03T23:00:00'),
         author: 'John Snow',
-        photoLink: 'https://yandex.by/images/search?text=%D0%BA%D0%B0%D1%80%D1%82%D0%B8%D0%BD%D0%BA%D0%B8&img_url=https%3A%2F%2Fstmed.net%2Fsites%2Fdefault%2Ffiles%2Fsquirrel-wallpapers-25639-2177715.jpg&pos=0&rpt=simage&stype=image&lr=157&parent-reqid=1552306820603634-533477407658204781100039-vla1-3102&source=wiz',
+        photoLink: 'pictures/x.jpg',
         hashTags: ['#work', '#up', '#love'],
         likes: ['Alex Gold','Miss sunshine']}
     ,
@@ -293,7 +293,7 @@ const postCollecton = new PostCollection([
         description: 'Эстафету в рамках соревнований по биатлону на Олимпийских играх в Пхёнчхане!!!',
         createdAt: new Date('2018-04-23T23:00:00'),
         author: 'Иванов Иван',
-        photoLink: 'https://yandex.by/images/search?text=%D0%BA%D0%B0%D1%80%D1%82%D0%B8%D0%BD%D0%BA%D0%B8&img_url=https%3A%2F%2Fstmed.net%2Fsites%2Fdefault%2Ffiles%2Fsquirrel-wallpapers-25639-2177715.jpg&pos=0&rpt=simage&stype=image&lr=157&parent-reqid=1552306820603634-533477407658204781100039-vla1-3102&source=wiz',
+        photoLink: 'pictures/x.jpg',
         hashTags: ['#work', '#up', '#love'],
         likes: ['Alex Gold','Miss sunshine']
     }
@@ -303,7 +303,7 @@ const postCollecton = new PostCollection([
         description: 'Эстафету в рамках соревнований по биатлону на Олимпийских играх в Пхёнчхане!!!',
         createdAt: new Date('2018-02-23T23:00:00'),
         author: 'Иванов Иван',
-        photoLink: 'https://yandex.by/images/search?text=%D0%BA%D0%B0%D1%80%D1%82%D0%B8%D0%BD%D0%BA%D0%B8&img_url=https%3A%2F%2Fstmed.net%2Fsites%2Fdefault%2Ffiles%2Fsquirrel-wallpapers-25639-2177715.jpg&pos=0&rpt=simage&stype=image&lr=157&parent-reqid=1552306820603634-533477407658204781100039-vla1-3102&source=wiz',
+        photoLink: 'pictures/x.jpg',
         hashTags: ['#work', '#up', '#love'],
         likes: ['Alex Gold','Miss sunshine']
     }
@@ -313,7 +313,7 @@ const postCollecton = new PostCollection([
         description: 'Эстафету в рамках соревнований по биатлону на Олимпийских играх в Пхёнчхане!!!',
         createdAt: new Date('2018-01-23T23:00:00'),
         author: 'John Snow',
-        photoLink: 'https://yandex.by/images/search?text=%D0%BA%D0%B0%D1%80%D1%82%D0%B8%D0%BD%D0%BA%D0%B8&img_url=https%3A%2F%2Fstmed.net%2Fsites%2Fdefault%2Ffiles%2Fsquirrel-wallpapers-25639-2177715.jpg&pos=0&rpt=simage&stype=image&lr=157&parent-reqid=1552306820603634-533477407658204781100039-vla1-3102&source=wiz',
+        photoLink: 'pictures/x.jpg',
         hashTags: ['#work', '#up', '#love'],
         likes: ['Alex Gold','Miss sunshine']
     }
@@ -323,7 +323,7 @@ const postCollecton = new PostCollection([
         description: 'Эстафету в рамках соревнований по биатлону на Олимпийских играх в Пхёнчхане!!!',
         createdAt: new Date('2018-03-28T23:00:00'),
         author: 'Иванов Иван',
-        photoLink: 'https://yandex.by/images/search?text=%D0%BA%D0%B0%D1%80%D1%82%D0%B8%D0%BD%D0%BA%D0%B8&img_url=https%3A%2F%2Fstmed.net%2Fsites%2Fdefault%2Ffiles%2Fsquirrel-wallpapers-25639-2177715.jpg&pos=0&rpt=simage&stype=image&lr=157&parent-reqid=1552306820603634-533477407658204781100039-vla1-3102&source=wiz',
+        photoLink: 'pictures/x.jpg',
         hashTags: ['#work', '#up', '#love'],
         likes: ['Alex Gold','Miss sunshine']
     }
