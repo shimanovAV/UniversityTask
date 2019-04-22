@@ -12,21 +12,22 @@ class FilterHelper {
         dateFrom(list, dateFrom) {
             let date = new Date(dateFrom);
             return list.filter(function (a) {
-                return a.createdAt >= date;
+                return new Date(a.createdAt) >= date;
             });
         }
         dateTo(list, dateTo) {
             let date = new Date(dateTo);
             return list.filter(function (a) {
-                return a.createdAt <= date;
+                return new Date(a.createdAt) <= date;
             });
         }
         hashTags(list, hashTags) {
-            hashTags.forEach(function (hashTag) {
+            Object.keys(hashTags).forEach(function (i) {
                 list = list.filter(function (a) {
-                    return a.hashTags.includes(hashTags[i])
+                    return a.hashTags.includes('#' + hashTags[i])
                 });
             });
+            return list;
         }
 }
 
@@ -56,15 +57,15 @@ class Validator {
 
 class PostCollection {
 
-    constructor(posts, user) {
+    constructor(posts) {
         this._posts = posts || [];
-        this._user = user || null;
     }
+
     getPage(skip, top, filterConfig = {}) {
         let filterHelper = new FilterHelper();
         skip = skip || START_POSITION_DEFAULT;
         top = top || END_POSITION_DEFAULT;
-        let filteredPosts = this._posts.sort((a, b) => b.createdAt - a.createdAt);
+        let filteredPosts = this._posts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
         Object.keys(filterConfig).forEach(function (field) {
             filteredPosts = filterHelper[field](filteredPosts, filterConfig[field])
         });
@@ -82,11 +83,9 @@ class PostCollection {
     }
 
     add(photoPost) {
-        photoPost.createdAt = new Date();
-        photoPost.id = String(photoPost.createdAt.getTime());
-        photoPost.author = this._user;
         if (Validator._checkDescription(photoPost.description) && Validator._checkPhotoLink(photoPost.photoLink)) {
             this._posts.unshift(photoPost);
+            allStoragePosts._posts.unshift(photoPost);
             return true;
         }
         return false;
@@ -94,25 +93,18 @@ class PostCollection {
 
     edit (id, photoPost) {
         let currentPhotoPost = this.get(id);
-        let flag = false;
-        if (Validator._validate(currentPhotoPost)) {
             if (Validator._checkDescription(photoPost.description)) {
                 currentPhotoPost.description = photoPost.description;
-                flag = true;
             }
-            if (Validator._checkPhotoLink(photoPost.photoLink)) {
-                currentPhotoPost.photoLink = photoPost.photoLink;
-                flag = true;
-            }
-        }
-        return flag;
+                currentPhotoPost.hashTags = photoPost.hashTags;
+        return currentPhotoPost;
     }
 
     remove(id) {
         let flag = false;
         let allPhotos = this._posts;
         if (Validator._checkId(id)) {
-            let elementForDeletion = allPhotos.findIndex(function (item, i, allPhotos) {
+            let elementForDeletion = allPhotos.findIndex(function (item) {
                 if (item.id === id) {
                    return true;
                 }
@@ -130,91 +122,118 @@ class PostCollection {
     clear(){
         this._posts = [];
     }
+    static _save(post)
+    {
+        localStorage.setItem("lastId", JSON.stringify(Controller.lastId));
+        localStorage.setItem('post ' + post.id, JSON.stringify(post));
+    }
+
+    static _restore()
+    {
+        let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+        let size = (!!currentUser) ? localStorage.length - 3 : localStorage.length - 2;
+        let allPosts = new Array(size);
+        let allUsers = JSON.parse(localStorage.getItem("users"));
+        for(let i = 0; i<size; i++){
+            let tempPost = JSON.parse(localStorage.getItem("post " + i));
+            if(!!!tempPost.isDeleted){
+                allPosts[i] = tempPost;
+            }
+        }
+        let allStorage = {post: new PostCollection(allPosts),
+            users: allUsers}
+        allStorage['currentUser'] = currentUser;
+        return allStorage;
+    }
+
+    getPosts(){
+        return this._posts;
+    }
 };
 
 postCollecton = new PostCollection([
     {
-        id: '1',
-        description: 'Женская сборная Беларуси выиграла эстафету в рамках соревнований по биатлону на Олимпийских играх в Пхёнчхане!!!',
-        createdAt: new Date('2018-02-23T23:00:00'),
-        author: 'Ivan',
+        id: '0',
+        description: 'Good picture',
+        createdAt: new Date('2018-02-23'),
+        author: 'Ivan Ivanov',
         photoLink: 'pictures/b.jpg',
         hashTags: ['#work', '#up', '#love'],
-        likes: ['Alex Gold','Miss sunshine']
+        likes: ['Ivan Ivanov']
     },
     {
-        id: '2',
-        description: 'Эстафету в рамках соревнований по биатлону на Олимпийских играх в Пхёнчхане!!!',
-        createdAt: new Date('2018-03-24T23:00:00'),
-        author: 'Иванов Иван',
+        id: '1',
+        description: 'Good picture for good man',
+        createdAt: new Date('2018-03-24'),
+        author: 'Ivan Ivanov',
         photoLink: 'pictures/c.jpg',
-        hashTags: ['#work', '#up', '#love'],
-        likes: ['Alex Gold','Miss sunshine']
+        hashTags: ['#up', '#love'],
+        likes: ['John Snow','Miss sunshine']
+    }
+    ,
+    {
+        id: '2',
+        description: 'Beautiful girl',
+        createdAt: new Date('2018-03-22'),
+        author: 'Ivan Ivanov',
+        photoLink: 'pictures/f.JPG',
+        hashTags: ['#work', '#up'],
+        likes: ['Ivan Ivanov','Miss sunshine']
     }
     ,
     {
         id: '3',
-        description: 'Эстафету в рамках соревнований по биатлону на Олимпийских играх в Пхёнчхане!!!',
-        createdAt: new Date('2018-03-22T23:00:00'),
-        author: 'Иванов Иван',
-        photoLink: 'pictures/f.JPG',
-        hashTags: ['#work', '#up', '#love'],
-        likes: ['Alex Gold','Miss sunshine']
+        description: 'Beautiful girl',
+        createdAt: new Date('2018-03-10'),
+        author: 'Ivan Ivanov',
+        photoLink: 'pictures/h.jpg',
+        hashTags: ['#work', '#up', '#sun'],
+        likes: ['John Snow','Miss sunshine']
     }
     ,
     {
         id: '4',
-        description: 'Эстафету в рамках соревнований по биатлону на Олимпийских играх в Пхёнчхане!!!',
-        createdAt: new Date('2018-03-10T23:00:00'),
-        author: 'Иванов Иван',
-        photoLink: 'pictures/h.jpg',
+        description: 'Beautiful girl',
+        createdAt: new Date('2018-03-03'),
+        author: 'Ivan Ivanov',
+        photoLink: 'pictures/j.jpg',
         hashTags: ['#work', '#up', '#love'],
-        likes: ['Alex Gold','Miss sunshine']
+        likes: ['Ivan Ivanov','Miss sunshine']
     }
     ,
     {
         id: '5',
-        description: 'Эстафету в рамках соревнований по биатлону на Олимпийских играх в Пхёнчхане!!!',
-        createdAt: new Date('2018-03-03T23:00:00'),
-        author: 'Иванов Иван',
-        photoLink: 'pictures/j.jpg',
-        hashTags: ['#work', '#up', '#love'],
-        likes: ['Alex Gold','Miss sunshine']
-    }
-    ,
-    {
-        id: '6',
-        description: 'Эстафету в рамках соревнований по биатлону на Олимпийских играх в Пхёнчхане!!!',
-        createdAt: new Date('2018-03-03T23:00:00'),
+        description: 'Beautiful girl',
+        createdAt: new Date('2018-03-03'),
         author: 'John Snow',
         photoLink: 'pictures/k.jpg',
         hashTags: ['#work', '#up', '#love'],
-        likes: ['Alex Gold','Miss sunshine']}
+        likes: ['Alex Gold','Ivan Ivanov']}
     ,
     {
-        id: '7',
-        description: 'Эстафету в рамках соревнований по биатлону на Олимпийских играх в Пхёнчхане!!!',
-        createdAt: new Date('2018-04-23T23:00:00'),
+        id: '6',
+        description: 'Beautiful girl',
+        createdAt: new Date('2018-04-23'),
         author: 'Ivan',
         photoLink: 'pictures/l.jpg',
         hashTags: ['#work', '#up', '#love'],
-        likes: ['Alex Gold','Miss sunshine']
+        likes: ['Alex Gold','John Snow']
     }
     ,
     {
-        id: '8',
-        description: 'Эстафету в рамках соревнований по биатлону на Олимпийских играх в Пхёнчхане!!!',
-        createdAt: new Date('2018-02-23T23:00:00'),
-        author: 'Иванов Иван',
+        id: '7',
+        description: 'Beautiful girl',
+        createdAt: new Date('2018-02-23'),
+        author: 'Ivan Ivanov',
         photoLink: 'pictures/m.jpg',
         hashTags: ['#work', '#up', '#love'],
         likes: ['Alex Gold','Miss sunshine']
     }
     ,
     {
-        id: '9',
-        description: 'Эстафету в рамках соревнований по биатлону на Олимпийских играх в Пхёнчхане!!!',
-        createdAt: new Date('2018-01-23T23:00:00'),
+        id: '8',
+        description: 'Beautiful girl',
+        createdAt: new Date('2018-01-23'),
         author: 'John Snow',
         photoLink: 'pictures/n.jpg',
         hashTags: ['#work', '#up', '#love'],
@@ -222,28 +241,38 @@ postCollecton = new PostCollection([
     }
     ,
     {
-        id: '10',
-        description: 'Эстафету в рамках соревнований по биатлону на Олимпийских играх в Пхёнчхане!!!',
-        createdAt: new Date('2018-03-28T23:00:00'),
-        author: 'Иванов Иван',
+        id: '9',
+        description: 'Beautiful girl',
+        createdAt: new Date('2018-03-28'),
+        author: 'Ivan Ivanov',
         photoLink: 'pictures/g.JPG',
         hashTags: ['#work', '#up', '#love'],
         likes: ['Alex Gold','Miss sunshine']
     },
     {
-        id: '11',
-        description: 'Женская сборная Беларуси выиграла эстафету в рамках соревнований по биатлону на Олимпийских играх в Пхёнчхане!!!',
-        createdAt: new Date('2018-02-23T23:00:00'),
-        author: 'Иванов Иван',
+        id: '10',
+        description: 'Now it works!',
+        createdAt: new Date('2018-02-23'),
+        author: 'Ivan Ivanov',
         photoLink: 'pictures/v.jpg',
         hashTags: ['#work', '#up', '#love'],
         likes: ['Alex Gold','Miss sunshine']
     },
     {
+        id: '11',
+        description: 'Эстафету в рамках соревнований по биатлону на Олимпийских играх в Пхёнчхане!!!',
+        createdAt: new Date('2018-03-24'),
+        author: 'John Snow',
+        photoLink: 'pictures/x.jpg',
+        hashTags: ['#work', '#up', '#love'],
+        likes: ['Alex Gold','Miss sunshine']
+    }
+    ,
+    {
         id: '12',
         description: 'Эстафету в рамках соревнований по биатлону на Олимпийских играх в Пхёнчхане!!!',
-        createdAt: new Date('2018-03-24T23:00:00'),
-        author: 'Иванов Иван',
+        createdAt: new Date('2018-03-22'),
+        author: 'John Snow',
         photoLink: 'pictures/x.jpg',
         hashTags: ['#work', '#up', '#love'],
         likes: ['Alex Gold','Miss sunshine']
@@ -252,80 +281,70 @@ postCollecton = new PostCollection([
     {
         id: '13',
         description: 'Эстафету в рамках соревнований по биатлону на Олимпийских играх в Пхёнчхане!!!',
-        createdAt: new Date('2018-03-22T23:00:00'),
-        author: 'Иванов Иван',
+        createdAt: new Date('2018-03-10'),
+        author: 'John Snow',
         photoLink: 'pictures/x.jpg',
         hashTags: ['#work', '#up', '#love'],
-        likes: ['Alex Gold','Miss sunshine']
+        likes: ['Alex Gold','John Snow']
     }
     ,
     {
         id: '14',
         description: 'Эстафету в рамках соревнований по биатлону на Олимпийских играх в Пхёнчхане!!!',
-        createdAt: new Date('2018-03-10T23:00:00'),
-        author: 'Иванов Иван',
+        createdAt: new Date('2018-03-03'),
+        author: 'John Snow',
         photoLink: 'pictures/x.jpg',
         hashTags: ['#work', '#up', '#love'],
-        likes: ['Alex Gold','Miss sunshine']
+        likes: ['Ivan Ivanov','Miss sunshine']
     }
     ,
     {
         id: '15',
         description: 'Эстафету в рамках соревнований по биатлону на Олимпийских играх в Пхёнчхане!!!',
-        createdAt: new Date('2018-03-03T23:00:00'),
-        author: 'Иванов Иван',
-        photoLink: 'pictures/x.jpg',
-        hashTags: ['#work', '#up', '#love'],
-        likes: ['Alex Gold','Miss sunshine']
-    }
-    ,
-    {
-        id: '16',
-        description: 'Эстафету в рамках соревнований по биатлону на Олимпийских играх в Пхёнчхане!!!',
-        createdAt: new Date('2018-03-03T23:00:00'),
+        createdAt: new Date('2018-03-03'),
         author: 'John Snow',
         photoLink: 'pictures/x.jpg',
         hashTags: ['#work', '#up', '#love'],
         likes: ['Alex Gold','Miss sunshine']}
     ,
     {
-        id: '17',
+        id: '16',
         description: 'Эстафету в рамках соревнований по биатлону на Олимпийских играх в Пхёнчхане!!!',
-        createdAt: new Date('2018-04-23T23:00:00'),
-        author: 'Иванов Иван',
+        createdAt: new Date('2018-04-23'),
+        author: 'John Snow',
         photoLink: 'pictures/x.jpg',
         hashTags: ['#work', '#up', '#love'],
-        likes: ['Alex Gold','Miss sunshine']
+        likes: ['Alex Gold','John Snow']
+    }
+    ,
+    {
+        id: '17',
+        description: 'Эстафету в рамках соревнований по биатлону на Олимпийских играх в Пхёнчхане!!!',
+        createdAt: new Date('2018-02-23'),
+        author: 'John Snow',
+        photoLink: 'pictures/x.jpg',
+        hashTags: ['#work', '#up', '#love'],
+        likes: ['Alex Gold','John Snow']
     }
     ,
     {
         id: '18',
         description: 'Эстафету в рамках соревнований по биатлону на Олимпийских играх в Пхёнчхане!!!',
-        createdAt: new Date('2018-02-23T23:00:00'),
-        author: 'Иванов Иван',
+        createdAt: new Date('2018-01-23'),
+        author: 'John Snow',
         photoLink: 'pictures/x.jpg',
         hashTags: ['#work', '#up', '#love'],
-        likes: ['Alex Gold','Miss sunshine']
+        likes: ['John Snow','Miss sunshine']
     }
     ,
     {
         id: '19',
         description: 'Эстафету в рамках соревнований по биатлону на Олимпийских играх в Пхёнчхане!!!',
-        createdAt: new Date('2018-01-23T23:00:00'),
+        createdAt: new Date('2018-03-28'),
         author: 'John Snow',
         photoLink: 'pictures/x.jpg',
         hashTags: ['#work', '#up', '#love'],
-        likes: ['Alex Gold','Miss sunshine']
-    }
-    ,
-    {
-        id: '20',
-        description: 'Эстафету в рамках соревнований по биатлону на Олимпийских играх в Пхёнчхане!!!',
-        createdAt: new Date('2018-03-28T23:00:00'),
-        author: 'Иванов Иван',
-        photoLink: 'pictures/x.jpg',
-        hashTags: ['#work', '#up', '#love'],
-        likes: ['Alex Gold','Miss sunshine']
+        likes: ['Alex Gold','John Snow']
     }
 
 ]);
