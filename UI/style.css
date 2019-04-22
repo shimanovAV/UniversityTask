@@ -67,7 +67,7 @@ h3 {
     float: left;
 }
 
-#addButton {
+#add {
     display: none;
     position: fixed;
     z-index: 1000;
@@ -90,6 +90,7 @@ h3 {
 .card {
     width: 100%;
     height: 40%;
+    color: #8d6e63;
 }
 
 .modalDialog {
@@ -136,7 +137,7 @@ h3 {
     text-align: center;
     width: 1.2em;
     height: 1.2em;
-    margin-top: -4%;
+    margin-top: -7%;
     text-decoration: none;
     font-weight: bold;
     -webkit-border-radius: 3%;
@@ -149,7 +150,7 @@ h3 {
 
 .btn {
     background: lightgray;
-    width: 25%;
+    width: 29%;
     height: 5%;
     border-radius: 5%;
     border: none;
@@ -207,8 +208,8 @@ body {
     background-size: cover;
 }
 
-.fa fa-filter, fa fa-trash-o, fa fa-wrench, fa fa-heart {
-    color: #8d6e63
+.fa fa-filter, fa fa-trash-o, fa fa-wrench {
+    color: #8d6e63;
 }
 
 hr {
@@ -227,6 +228,52 @@ main {
 
 .fa fa-plus fa-2x {
     color: #f8f9fa;
+}
+
+.photoPage {
+    width: 23%;
+    text-align: center;
+    border: 0.0625em solid lightgray;
+    border-radius: 2%;
+}
+.load {
+    text-align: center;
+}
+#loadButton {
+    z-index: 1000;
+    background: #8d6e63;
+    color: #f8f9fa;
+    border-radius: 10px;
+    text-align: center;
+    margin-top: 5vh;
+}
+#wrongMessage{
+    color: red;
+}
+#signOutButton{
+    background: transparent;
+    border-color: transparent;
+    color: #8d6e63 !important;
+    text-decoration: none;
+    font-style: italic;
+    font-family: "Times New Roman";
+    font-size: medium;
+    display: none;
+}
+#sign{
+display: block;
+}
+.deleteButton, .changeButton, .likeButton{
+    background: transparent;
+    border-color: transparent;
+    color: #8d6e63 !important;
+    text-decoration: none;
+    font-style: italic;
+    font-family: "Times New Roman";
+    font-size: medium;
+}
+fa fa-heart {
+    color: #e0b8a6;
 }
 
 
