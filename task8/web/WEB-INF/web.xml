@@ -5,27 +5,27 @@
          version="4.0">
     <servlet>
         <servlet-name>FirstServlet</servlet-name>
-        <servlet-class>bsu.edu.practice.FirstServlet</servlet-class>
+        <servlet-class>bsu.edu.practise.FirstServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>StatusServlet</servlet-name>
-        <servlet-class>bsu.edu.practice.StatusServlet</servlet-class>
+        <servlet-class>bsu.edu.practise.StatusServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>NameServlet</servlet-name>
-        <servlet-class>bsu.edu.practice.NameServlet</servlet-class>
+        <servlet-class>bsu.edu.practise.NameServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>JSONServlet</servlet-name>
-        <servlet-class>bsu.edu.practice.JSONServlet</servlet-class>
+        <servlet-class>bsu.edu.practise.JSONServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Test1Servlet</servlet-name>
-        <servlet-class>bsu.edu.practice.Test1Servlet</servlet-class>
+        <servlet-class>bsu.edu.practise.Test1Servlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Test2Servlet</servlet-name>
-        <servlet-class>bsu.edu.practice.Test2Servlet</servlet-class>
+        <servlet-class>bsu.edu.practise.Test2Servlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Page</servlet-name>
@@ -33,7 +33,7 @@
     </servlet>
     <filter>
         <filter-name>MethodFilter</filter-name>
-        <filter-class>bsu.edu.practice.MethodFilter</filter-class>
+        <filter-class>bsu.edu.practise.MethodFilter</filter-class>
     </filter>
 
 
@@ -48,7 +48,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>NameServlet</servlet-name>
-        <url-pattern>/get*</url-pattern>
+        <url-pattern>/get</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>JSONServlet</servlet-name>
