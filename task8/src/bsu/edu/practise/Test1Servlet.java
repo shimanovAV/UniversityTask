@@ -1,4 +1,4 @@
-package bsu.edu.practice;
+package bsu.edu.practise;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
