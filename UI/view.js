@@ -61,9 +61,9 @@ class View
             newPost = newPost + `style="color:#e0b8a6">`;
         }
         newPost = newPost + `</i>${post.likes.length}</button>
-                            <div class="photoImage" id="${post.id}">
-                                <a href="#post"><img class="card" src="${post.photoLink}"></a>
-                             </div>`;
+                            <a href="#post"><div class="photoImage" id="${post.id}">
+                                <img class="card" src="${post.photoLink}">
+                             </div></a>`;
     }
         return newPost;
     }
@@ -81,7 +81,7 @@ class View
 
     showPost(post)
     {
-        if(!!!post.isDeleted) {
+        if(!post.isDeleted) {
             let photos = document.getElementById("photos");
             let divPhoto = this._createDivPhoto(post);
             photos.appendChild(divPhoto);

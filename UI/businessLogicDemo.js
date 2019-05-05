@@ -1,3 +1,5 @@
+const NEXT_PORTION_OF_POSTS = 10;
+const START_PORTION_OF_POSTS = 0;
 let page = (function(){
 
     return {
@@ -19,7 +21,7 @@ let page = (function(){
         },
         showPosts: function(posts)
         {
-            countForLoad = 0;
+            countForLoad = START_PORTION_OF_POSTS;
             allPosts = new PostCollection(posts);
             if(typeof view == "undefined"){
                 view = new View();
@@ -29,7 +31,7 @@ let page = (function(){
             });
         },
         _updatePosts: function(posts, user){
-            posts.getPage(0,countForLoad+10, {author: user}).forEach(element => {
+            posts.getPage(START_PORTION_OF_POSTS,countForLoad+NEXT_PORTION_OF_POSTS, {author: user}).forEach(element => {
                 view.editPost(element.id, element);
             });
             posts._posts.filter(function (element) {
@@ -76,8 +78,8 @@ let page = (function(){
         },
         loadPosts(filterConfig)
         {
-            countForLoad += 10;
-            allStoragePosts.getPage(countForLoad,10, filterConfig).forEach(element=>{
+            countForLoad += NEXT_PORTION_OF_POSTS;
+            allStoragePosts.getPage(countForLoad,NEXT_PORTION_OF_POSTS, filterConfig).forEach(element=>{
                 view.showPost(element);
             });
 
