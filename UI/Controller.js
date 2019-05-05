@@ -1,7 +1,8 @@
 (function start() {
-    if (!localStorage.length) {
-        Object.keys(postCollecton.getPosts()).forEach(function (index) {
-            let postString = JSON.stringify(postCollecton.getPosts()[index]);
+    if (!(localStorage.getItem("users") && localStorage.getItem("lastId"))) {
+        let pC = postCollecton.getPosts();
+        Object.keys(pC).forEach(function (index) {
+            let postString = JSON.stringify(pC[index]);
             localStorage.setItem("post " + index, postString);
         });
         localStorage.setItem("lastId", "20");
@@ -76,28 +77,14 @@ class Controller {
     }
     _createPhotoButtons()
     {
-        this.photoButtons = document.getElementsByClassName("photoImage");
-        for (let photo of this.photoButtons) {
-            photo.addEventListener('click', this._transferInfoForView)
-        }
+        document.querySelector('.container').addEventListener('click', this._transferInfoForView);
     }
     _createUserButtons(){
-        this.deleteButton = document.getElementsByClassName("deleteButton");
+        document.querySelector('.container').addEventListener('click', this._transferInfoForView);
         this.delete = document.getElementById("delete");
-        this.changeButton = document.getElementsByClassName("changeButton");
         this.change = document.getElementById("change");
-        this.likeButton = document.getElementsByClassName("likeButton");
-        for (let button of this.deleteButton) {
-            button.addEventListener('click', this._transferIdForDelete)
-        }
         this.delete.addEventListener('click', this._deletePost);
-        for (let button of this.changeButton) {
-            button.addEventListener('click', this._transferIdForChange)
-        }
         this.change.addEventListener('click', this._changePost);
-        for (let button of this.likeButton) {
-            button.addEventListener('click', this._setLike)
-        }
     }
     _findPosts(event){
         event.preventDefault();
@@ -154,7 +141,8 @@ class Controller {
         });
         photoPath = photoPath.split('\\');
         photoPath = "pictures/" + photoPath[photoPath.length - 1];
-        Controller.lastId = parseInt(localStorage.getItem("lastId"),10);
+        let temp = localStorage.getItem("lastId");
+        Controller.lastId = parseInt(temp,10);
         let post = {
             createdAt: new Date(),
             id: String(Controller.lastId),
@@ -168,41 +156,62 @@ class Controller {
         PostCollection._save(post);
         Controller.prototype._createUserButtons();
     }
-    _transferIdForDelete(){
-        let postId = this.id;
-        let mdDelete = document.getElementById('delete');
-        mdDelete.name = postId;
-        location.href='#deletePost'
-    }
-    _transferInfoForView(){
-        let postId = this.id;
-        let post = allStoragePosts.get(postId);
-        if(!!post){
-            let mdPost = document.getElementById('postName');
-            mdPost.innerHTML = post.author;
-            mdPost = document.getElementById('image');
-            mdPost.src = post.photoLink;
-            mdPost = document.getElementById('postCreateDate');
-            mdPost.innerHTML = new Date(post.createdAt).toDateString();
-            mdPost = document.getElementById('postDescription');
-            mdPost.innerHTML = post.description;
-            mdPost = document.getElementById('postHashTags');
-            mdPost.innerHTML = post.hashTags.toString().replace(new RegExp(',', 'g'), '');
+    _transferInfoForView(event){
+        let button = event.target.parentElement.className;
+        let postId, post;
+        switch (button) {
+            case "photoImage":
+                postId = event.target.parentElement.getAttribute('id');
+                post = allStoragePosts.get(postId);
+                if(!!post){
+                    let mdPost = document.getElementById('postName');
+                    mdPost.innerHTML = post.author;
+                    mdPost = document.getElementById('image');
+                    mdPost.src = post.photoLink;
+                    mdPost = document.getElementById('postCreateDate');
+                    mdPost.innerHTML = new Date(post.createdAt).toDateString();
+                    mdPost = document.getElementById('postDescription');
+                    mdPost.innerHTML = post.description;
+                    mdPost = document.getElementById('postHashTags');
+                    mdPost.innerHTML = post.hashTags.toString().replace(new RegExp(',', 'g'), '');
+                }
+                location.href='#post';
+                break;
+            case "likeButton":
+                postId = event.target.parentElement.getAttribute('id');
+                post = allStoragePosts.get(postId);
+                let indexOfUserInLikes = page.indexUserInLikes(post, Controller.currentUser.login);
+                if(indexOfUserInLikes !== (-1)){
+                    event.target.parentElement.style.color = '#e0b8a6';
+                    post.likes.splice(indexOfUserInLikes, 1);
+                } else{
+                    event.target.parentElement.style.color = '#8d6e63';
+                    post.likes.unshift(Controller.currentUser.login);
+                }
+                PostCollection._save(post);
+                view.editPost(postId, post);
+                Controller.prototype._createUserButtons();
+                break;
+            case "deleteButton":
+                postId = event.target.parentElement.getAttribute('id');
+                let mdDelete = document.getElementById('delete');
+                mdDelete.name = postId;
+                location.href='#deletePost';
+                break;
+            case "changeButton":
+                postId = event.target.parentElement.getAttribute('id');
+                post = allStoragePosts.get(postId);
+                if(!!post){
+                    let mdButton = document.getElementById('change');
+                    mdButton.name = postId;
+                    let mdDelete = document.getElementById('changeDescription');
+                    mdDelete.value = post.description;
+                    mdDelete = document.getElementById('changeHashTags');
+                    mdDelete.value = post.hashTags.toString().replace(new RegExp(',', 'g'), '');
+                }
+                location.href='#changePost';
         }
-        location.href='#post'
-    }
-    _transferIdForChange(){
-        let postId = this.id;
-        let post = allStoragePosts.get(postId);
-        if(!!post){
-            let mdButton = document.getElementById('change');
-            mdButton.name = postId;
-            let mdDelete = document.getElementById('changeDescription');
-            mdDelete.value = post.description;
-            mdDelete = document.getElementById('changeHashTags');
-            mdDelete.value = post.hashTags.toString().replace(new RegExp(',', 'g'), '');
-        }
-        location.href='#changePost'
+
     }
     _deletePost(){
         event.preventDefault();
@@ -225,21 +234,6 @@ class Controller {
         page.editPost(postId, post);
         Controller.prototype._createUserButtons();
         Controller.prototype._createPhotoButtons();
-    }
-    _setLike(){
-        let postId = this.id;
-        let post = allStoragePosts.get(postId);
-        let indexOfUserInLikes = page.indexUserInLikes(post, Controller.currentUser.login);
-        if(indexOfUserInLikes !== (-1)){
-            this.style.color = '#e0b8a6';
-            post.likes.splice(indexOfUserInLikes, 1);
-        } else{
-            this.style.color = '#8d6e63';
-            post.likes.unshift(Controller.currentUser.login);
-        }
-        PostCollection._save(post);
-        view.editPost(postId, post);
-        Controller.prototype._createUserButtons();
     }
 }
 new Controller();

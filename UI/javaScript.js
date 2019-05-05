@@ -1,6 +1,8 @@
 const MAX_SIZE_OF_DESCRIPTION = 200;
 const START_POSITION_DEFAULT = 0;
 const END_POSITION_DEFAULT = 10;
+const LAST_ID_AND_USERS_AND_CURRENT_USER = 3;
+const LAST_ID_AND_USERS = 2;
 
 
 class FilterHelper {
@@ -24,7 +26,7 @@ class FilterHelper {
         hashTags(list, hashTags) {
             Object.keys(hashTags).forEach(function (i) {
                 list = list.filter(function (a) {
-                    return a.hashTags.includes('#' + hashTags[i])
+                    return a.hashTags.includes(hashTags[i])
                 });
             });
             return list;
@@ -131,12 +133,14 @@ class PostCollection {
     static _restore()
     {
         let currentUser = JSON.parse(localStorage.getItem("currentUser"));
-        let size = (!!currentUser) ? localStorage.length - 3 : localStorage.length - 2;
+        Controller.lastId = JSON.parse(localStorage.getItem("lastId"));
+        let size = (!!currentUser) ? localStorage.length - LAST_ID_AND_USERS_AND_CURRENT_USER
+            : localStorage.length - LAST_ID_AND_USERS;
         let allPosts = new Array(size);
         let allUsers = JSON.parse(localStorage.getItem("users"));
         for(let i = 0; i<size; i++){
             let tempPost = JSON.parse(localStorage.getItem("post " + i));
-            if(!!!tempPost.isDeleted){
+            if(!tempPost.isDeleted){
                 allPosts[i] = tempPost;
             }
         }
