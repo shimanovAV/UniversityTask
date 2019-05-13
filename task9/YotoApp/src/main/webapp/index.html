@@ -1,0 +1,135 @@
+<html>
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="resources/css/style.css" rel="stylesheet">
+</head>
+
+<header>
+    <div>
+        <a class="filter" type="button" href="#filter">
+            <i class="fa fa-filter"></i></a>
+    </div>
+
+        <a id="sign" class="text-right" href="#signIn">SignIn</a>
+        <button id="signOutButton" class="text-right">SignOut</button>
+
+    <p id="logotip">
+        <a href="index.html"><img src=".//pictures//Yoto.png" alt="Responsive image"></a>
+    </p>
+
+    <hr/>
+    <h4 align="center" id="authorName"></h4>
+    <hr/>
+</header>
+
+<main>
+    <button type="button" id="add" onclick="location.href='#addPost'">
+        <i class="fa fa-plus fa-2x"></i>
+    </button>
+
+    <div class="container" id="photos"></div>
+
+    <div class="modalDialog" id="deletePost">
+        <div>
+            <a href="#close" title="Закрыть" class="close">X</a>
+            <h3>Do you want to delete the product?</h3>
+            <input id="delete" class="btn" type="submit" value="Yes"/>
+        </div>
+    </div>
+
+    <div class="modalDialog" id="filter">
+        <div>
+            <form method="post">
+            <a href="#close" title="Закрыть" class="close">X</a>
+            <h3>Filter</h3>
+            <label>Name</label><br/>
+            <input type="text" id="filterAuthorName" class="form-control" value=""/><br/>
+            <label>Data</label><br/>
+            <input type="date" id="filterDateFrom" class="form-control"/>
+            <input type="date" id="filterDateTo" class="form-control"/><br/>
+            <label>HashTags</label><br/>
+            <input type="text" id="filterHashTags" class="form-control" value=""/><br/>
+            <input id="filterButton" class="btn" type="submit" value="Find"/><br/>
+            </form>
+        </div>
+    </div>
+
+    <div class="modalDialog" id="changePost">
+        <div>
+            <form method="post">
+            <a href="#close" title="Закрыть" class="close">X</a>
+            <h3>Change post</h3>
+            <label>Description</label><br/>
+            <input type="text" id="changeDescription" class="form-control" value=""/><br/>
+            <label>HashTags</label><br/>
+            <input type="text" id="changeHashTags" class="form-control" value=""/><br/>
+            <input class="btn" id="change" type="submit" value="Change"/><br/>
+            </form>
+        </div>
+    </div>
+
+    <div class="modalDialog" id="signIn">
+        <div>
+            <form method="post">
+                <a href="#close" title="Закрыть" class="close">X</a>
+                <h3>SignIn</h3>
+                <label>Login</label><br/>
+                <input type="text" id="login" class="form-control"/><br/>
+                <label>Password</label><br/>
+                <input type="password" id="password" class="form-control"/>
+                <label id="wrongMessage"></label><br/>
+                <input id="signInButton" class="btn" type="submit" value="SignIn"/><br/>
+            </form>
+        </div>
+    </div>
+
+    <div class="modalDialog" id="addPost">
+        <div>
+            <form method="post" enctype="multipart/form-data">
+            <a href="#close" title="Закрыть" class="close">X</a>
+            <h3>Add post</h3>
+            <label>Description</label><br/>
+            <input type="text" id="description" class="form-control"/><br/>
+            <label>Hashtags</label><br/>
+            <input type="text" id="hashTags" class="form-control"/><br/>
+            <label>Photo</label><br/>
+            <input class="form-control" type="file" id="filePath" accept="image/*">
+            <input id="addButton" class="btn" type="submit" value="Add"/><br/>
+            </form>
+        </div>
+    </div>
+
+    <div class="modalDialog" id="post">
+        <div class="photoPage">
+            <a href="#close" title="Закрыть" class="close">X</a>
+            <img id="image" class="card" src="pictures/l.jpg">
+            <label id="postName"></label><br/>
+            <label id="postCreateDate"></label><br/>
+            <label id="postDescription"></label><br/>
+            <label id="postHashTags"></label><br/>
+        </div>
+    </div>
+
+    <div class="load">
+        <button type="button" id="loadButton">
+            Load More
+        </button>
+    </div>
+
+</main>
+
+<footer style="background: #f8f9fa; background-size: 100%;">
+    <div class="container-fluid bg-light">
+        <h4 class="container-fluid bg-light" align="center">Yoto</h4>
+        <h4 class="container-fluid bg-light" align="center">Aleksandra Shimanovich</h4>
+        <h4 class="container-fluid bg-light" align="center">2 course 5 group</h4>
+        <h4 class="container-fluid bg-light" align="center">aleksandra.shimanovich@mail.ru</h4>
+        <h4 class="container-fluid bg-light" align="center">04.03.2019</h4>
+    </div>
+</footer>
+<script src="resources/js/javaScript.js"></script>
+<script src="resources/js/view.js"></script>
+<script src="resources/js/businessLogicDemo.js"></script>
+<script src="resources/js/Controller.js"></script>
+</body>
+</html>
