@@ -47,6 +47,10 @@
         <servlet-name>Like</servlet-name>
         <servlet-class>by.bsu.practice.task9.controller.LikeServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Image</servlet-name>
+        <servlet-class>by.bsu.practice.task9.controller.UploadServlet</servlet-class>
+    </servlet>
     <filter>
         <filter-name>MethodFilter</filter-name>
         <filter-class>by.bsu.practice.task8.MethodFilter</filter-class>
@@ -97,6 +101,10 @@
     <servlet-mapping>
         <servlet-name>Like</servlet-name>
         <url-pattern>/like</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Image</servlet-name>
+        <url-pattern>/image</url-pattern>
     </servlet-mapping>
     <filter-mapping>
         <filter-name>MethodFilter</filter-name>
