@@ -1,0 +1,293 @@
+.container {
+    margin-top: 3.125%;
+}
+
+a:visited {
+    color: #8d6e63 !important;
+    text-decoration: none;
+}
+
+a:hover, ul.nav li a:active {
+    color: #8d6e63 !important;
+    text-decoration: none;
+}
+
+a {
+    color: #8d6e63 !important;
+    text-decoration: none;
+    font-style: italic;
+}
+
+h3 {
+    color: #8d6e63 !important;
+    text-align: center;
+}
+
+.navbar-nav > li {
+    padding-left: 5%;
+    padding-right: 5%;
+    text-transform: uppercase;
+}
+
+.search-box {
+    position: absolute;
+    top: 2%;
+    left: 95%;
+    transform: translate(-50%, -50%);
+    background: #f8f9fa;
+    height: 1.25%;
+    border-radius: 1.25%;
+}
+
+.search-box:hover > .search-txt {
+    width: 11.25%;
+    color: #8d6e63;
+}
+
+.search-btn {
+    color: #8d6e63;
+    float: right;
+    width: 1.25%;
+    height: 1.25%;
+    border-radius: 40%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    line-height: 1.25%;
+    cursor: pointer;
+}
+
+.search-txt {
+    border: none;
+    background: none;
+    outline: none;
+    height: 1.25%;
+    transition: 0.4s;
+    width: 0%;
+    float: left;
+}
+
+#add {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    background: #8d6e63;
+    color: #f8f9fa;
+    border-radius: 50%;
+    bottom: 3.75%;
+    right: 3.75%;
+    text-align: center;
+}
+
+.photo {
+    width: 23%;
+    text-align: center;
+    border: 0.0625em solid lightgray;
+    border-radius: 2%;
+    display: inline-block;
+}
+
+.card {
+    width: 100%;
+    height: 40%;
+    color: #8d6e63;
+}
+
+.modalDialog {
+    position: fixed;
+    overflow: auto;
+    font-family: Arial, Helvetica, sans-serif;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 99999;
+    -webkit-transition: opacity 400ms ease-in;
+    -moz-transition: opacity 400ms ease-in;
+    transition: opacity 400ms ease-in;
+    display: none;
+    pointer-events: none;
+}
+
+.modalDialog:target {
+    display: block;
+    pointer-events: auto;
+}
+
+
+.modalDialog > div {
+    width: 30%;
+    position: relative;
+    margin: 10% auto;
+    padding: 0.3125% 1.25% 0.8125% 1.25%;
+    border-radius: 0.625%;
+    background: #fff;
+    background: -moz-linear-gradient(#fff, #fff);
+    background: -webkit-linear-gradient(#fff, #fff);
+    background: -o-linear-gradient(#fff, #fff);
+}
+
+.close {
+    background: #FFFFFF;
+    color: #FFFFFF;
+    line-height: 110%;
+    position: absolute;
+    right: -12px;
+    text-align: center;
+    width: 1.2em;
+    height: 1.2em;
+    margin-top: -7%;
+    text-decoration: none;
+    font-weight: bold;
+    -webkit-border-radius: 3%;
+    -moz-border-radius: 3%;
+    border-radius: 90%;
+    -moz-box-shadow: 1px 1px 3px #000;
+    -webkit-box-shadow: 1px 1px 3px #000;
+    box-shadow: 1px 1px 3px #000;
+}
+
+.btn {
+    background: lightgray;
+    width: 29%;
+    height: 5%;
+    border-radius: 5%;
+    border: none;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+.container {
+    text-align: center;
+}
+
+.form-control {
+    margin-bottom: 10%;
+    border-radius: 1%;
+}
+
+.filter {
+    position: absolute;
+    right: 2%;
+    text-align: right;
+}
+
+.page-item {
+    width: 3%;
+    height: 5%;
+    text-align: center;
+    border: 0.0625em solid lightgray;
+    border-radius: 3%;
+    display: inline-block;
+    margin: 0 0 0 0;
+}
+
+.page-link {
+    text-align: center;
+    font-size: x-large;
+}
+
+ul, #logotip {
+    text-align: center;
+    width: 100%;
+}
+
+h4 {
+    text-align: center;
+    color: #8d6e63;
+    font-size: large;
+}
+
+header {
+    margin-bottom: 2%;
+}
+
+body {
+    background: #f8f9fa;
+    background-size: cover;
+}
+
+.fa fa-filter, fa fa-trash-o, fa fa-wrench {
+    color: #8d6e63;
+}
+
+hr {
+    color: #8d6e63;
+}
+
+#authorName {
+    font-size: 250%;
+    display: none;
+}
+
+main {
+    background: #f8f9fa;
+    background-size: 100%;
+}
+
+.fa fa-plus fa-2x {
+    color: #f8f9fa;
+}
+
+.photoPage {
+    width: 23%;
+    text-align: center;
+    border: 0.0625em solid lightgray;
+    border-radius: 2%;
+}
+.load {
+    text-align: center;
+}
+#loadButton {
+    z-index: 1000;
+    background: #8d6e63;
+    color: #f8f9fa;
+    border-radius: 10px;
+    text-align: center;
+    margin-top: 5vh;
+}
+#wrongMessage{
+    color: red;
+}
+#signOutButton{
+    background: transparent;
+    border-color: transparent;
+    color: #8d6e63 !important;
+    text-decoration: none;
+    font-style: italic;
+    font-family: "Times New Roman";
+    font-size: medium;
+    display: none;
+}
+#sign{
+display: block;
+}
+.deleteButton, .changeButton, .likeButton{
+    background: transparent;
+    border-color: transparent;
+    color: #8d6e63 !important;
+    text-decoration: none;
+    font-style: italic;
+    font-family: "Times New Roman";
+    font-size: medium;
+}
+fa fa-heart {
+    color: #e0b8a6;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
