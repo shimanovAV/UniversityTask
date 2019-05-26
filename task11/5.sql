@@ -1,0 +1,2 @@
+SELECT user.USER_ID, NAME FROM user JOIN photo_post pp on user.USER_ID = pp.USER_ID
+GROUP BY pp.USER_ID HAVING COUNT(pp.USER_ID) > 3;
