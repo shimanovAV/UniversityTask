@@ -1,0 +1,5 @@
+SELECT NAME FROM photo_post JOIN user
+  ON user.USER_ID = photo_post.USER_ID
+WHERE CREATION_DATE = '2019-05-25 17:45:50'
+GROUP BY NAME
+HAVING COUNT(photo_post.USER_ID) > 3;
